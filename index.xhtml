@@ -1,0 +1,40 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.1//EN"
+"http://www.w3.org/TR/xhtml11/DTD/xhtml11.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+  <title>Title of document</title>
+</head>
+<body>
+
+  <h1> Rub-a-Data </h1> 
+   <button onclick="window.location.href='./Front/playerTest.xhtml'">Vai a Youtube Player</button>
+    <br/>
+    <br/>
+   <button onclick="window.location.href='./Front/playerTestSoundCloud.xhtml'">Vai a Soundcloud Player</button>
+   <br/>
+   <br/>
+
+
+   <h1>Content of tab_songs.txt</h1>
+    <pre id="fileContent">Loading...</pre>
+    <script>
+        // Funzione per caricare il contenuto del file txt
+        function loadFile() {
+            fetch('tab_songs.txt')
+                .then(response => response.text())
+                .then(text => {
+                    document.getElementById('fileContent').textContent = text;
+                })
+                .catch(error => {
+                    document.getElementById('fileContent').textContent = 'Failed to load file.';
+                    console.error('Error loading file:', error);
+                });
+        }
+
+        // Carica il file quando il documento è pronto
+        document.addEventListener('DOMContentLoaded', loadFile);
+    </script>
+      
+
+</body>
+</html>
