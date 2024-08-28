@@ -259,6 +259,23 @@
       document.removeEventListener('mouseup', onMouseUp);
     }
 
+    // Funzione per caricare il contenuto del file txt
+  function loadFile() {
+    fetch('tab_songs.txt')
+        .then(response => response.text())
+        .then(text => {
+            document.getElementById('fileContent').textContent = text;
+        })
+        .catch(error => {
+            document.getElementById('fileContent').textContent = 'Failed to load file.';
+            console.error('Error loading file:', error);
+        });
+  }
+
+  // Carica il file quando il documento è pronto
+  document.addEventListener('DOMContentLoaded', loadFile);
+
+
   </script>
 
 </body>
