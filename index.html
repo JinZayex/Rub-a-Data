@@ -51,7 +51,12 @@
   </div>
   
 
+  <!-- Incorporare contenuto.html usando iframe -->
+   <iframe id="myIframe" src="tab_songs.txt" frameborder="0"></iframe>
 
+   <!-- Tag per mostrare il numero di caratteri -->
+   <div id="characterCount"></div>
+  
   <button onclick="window.location.href='../index.xhtml'">Vai alla homeeeee!</button>
 
   <script type="text/javascript">
@@ -71,6 +76,14 @@
     var progressKnob = document.getElementById('progressKnob');
     var progressContainer = document.querySelector('.progress-container');
 
+    // Funzione per calcolare e mostrare il numero di caratteri
+      function countCharacters() {
+          var iframe = document.getElementById('myIframe');
+          var iframeContent = iframe.contentWindow.document.body.textContent || iframe.contentWindow.document.body.innerText;
+          var characterCount = iframeContent.length;
+          document.getElementById('characterCount').innerText = 'Numero di caratteri: ' + characterCount;
+      }
+    
     function onYouTubeIframeAPIReady() {
       youtubePlayer = new YT.Player('youtubePlayer', {
         events: {
@@ -218,6 +231,8 @@
 
     // Carica il primo media
     window.onload = function() {
+      var iframe = document.getElementById('myIframe');
+      iframe.onload = countCharacters;
       loadNextMedia();
     };
 
