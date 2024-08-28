@@ -1,0 +1,134 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.1//EN"
+"http://www.w3.org/TR/xhtml11/DTD/xhtml11.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+  <title>Player Test Soundcloud</title>
+  <script src="https://w.soundcloud.com/player/api.js"></script>
+  <style>
+    .progress-container {
+      width: 100%;
+      height: 10px;
+      background: #eee;
+      margin-top: 10px;
+      position: relative;
+    }
+    .progress-bar {
+      height: 100%;
+      background: #4caf50;
+      width: 0%;
+      position: absolute;
+      top: 0;
+      left: 0;
+    }
+    .progress-knob {
+      width: 10px;
+      height: 10px;
+      background: #333;
+      position: absolute;
+      top: 50%;
+      transform: translateY(-50%);
+      cursor: pointer;
+    }
+  </style>
+</head>
+<body>
+
+  <h1>Player Test Soundcloud</h1>
+
+  <iframe id="scPlayer" width="100%" height="450" 
+  scrolling="no" 
+  frameborder="no" 
+  src="https://w.soundcloud.com/player/?url=https%3A//api.soundcloud.com/tracks/41395010&amp;auto_play=false&amp;hide_related=false&amp;show_comments=true&amp;show_user=true&amp;show_reposts=false&amp;visual=true"></iframe>
+
+  <button onclick="window.location.href='../index.xhtml'">Vai alla home</button>
+
+  <div id="message"></div>
+
+  <!-- Progress Bar -->
+  <div class="progress-container">
+    <div class="progress-bar" id="progressBar"></div>
+    <div class="progress-knob" id="progressKnob"></div>
+  </div>
+
+  <script type="text/javascript">
+    var iframeElement = document.getElementById('scPlayer');
+    var widget = SC.Widget(iframeElement);
+    var trackIds = [
+      '41395010',   // Primo brano
+      '858345298',  // Secondo brano
+      '858345292',  // Terzo brano
+    ];
+   
+    var currentTrackIndex = 0;
+    var progressBar = document.getElementById('progressBar');
+    var progressKnob = document.getElementById('progressKnob');
+    var progressContainer = document.querySelector('.progress-container');
+
+    var isDragging = false;
+
+    function updateProgressBar() {
+      if (!isDragging) {
+        widget.getCurrentPosition(function(position) {
+          widget.getDuration(function(duration) {
+            var progress = (position / duration) * 100;
+            progressBar.style.width = progress + '%';
+            progressKnob.style.left = progress + '%';
+          });
+        });
+      }
+    }
+
+    widget.bind(SC.Widget.Events.READY, function() {
+      widget.bind(SC.Widget.Events.PLAY, function() {
+        updateProgressBar();
+      });
+      widget.bind(SC.Widget.Events.PAUSE, function() {
+        updateProgressBar();
+      });
+      widget.bind(SC.Widget.Events.FINISH, function() {
+        currentTrackIndex++;
+          document.getElementById('message').innerHTML = 'Il brano è terminato! Caricamento del prossimo brano...';
+          widget.load('https://api.soundcloud.com/tracks/' + trackIds[currentTrackIndex], {
+            auto_play: true,
+            show_comments: true,
+            show_user: true,
+            show_reposts: false,
+            visual: true
+          });
+
+      });
+    });
+
+    // Aggiorna la barra di avanzamento ogni secondo
+    setInterval(updateProgressBar, 1000);
+
+    // Gestione del drag-and-drop del cursore di avanzamento
+    progressKnob.addEventListener('mousedown', function(e) {
+      isDragging = true;
+      document.addEventListener('mousemove', onMouseMove);
+      document.addEventListener('mouseup', onMouseUp);
+    });
+
+    function onMouseMove(e) {
+      if (isDragging) {
+        let rect = progressContainer.getBoundingClientRect();
+        let x = e.clientX - rect.left;
+        let progress = Math.min(Math.max(x / rect.width, 0), 1);
+        progressBar.style.width = (progress * 100) + '%';
+        progressKnob.style.left = (progress * 100) + '%';
+
+        widget.getDuration(function(duration) {
+          widget.seekTo(progress * duration);
+        });
+      }
+    }
+
+    function onMouseUp() {
+      isDragging = false;
+      document.removeEventListener('mousemove', onMouseMove);
+      document.removeEventListener('mouseup', onMouseUp);
+    }
+  </script>
+
+</body>
+</html>

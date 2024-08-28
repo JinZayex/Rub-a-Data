@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="UTF-8"/>
+    <title>Leggi File Binario</title>
+</head>
+<body>
+    <h1>Leggi un File Binario</h1>
+    <input type="file" id="fileInput" accept=".bin" />
+    <pre id="fileContent"></pre>
+
+    <script type="text/javascript">
+        document.getElementById('fileInput').addEventListener('change', function(event) {
+            var file = event.target.files[0];
+            if (file) {
+                var reader = new FileReader();
+                reader.onload = function(e) {
+                    var binaryData = e.target.result;
+                    var binaryString = "";
+                    var bytes = new Uint8Array(binaryData);
+                    for (var i = 0; i < bytes.length; i++) {
+                        binaryString += bytes[i].toString(16).padStart(2, '0') + " ";
+                    }
+                    document.getElementById('fileContent').textContent = binaryString;
+                };
+                reader.readAsArrayBuffer(file);
+            } else {
+                document.getElementById('fileContent').textContent = "Nessun file selezionato.";
+            }
+        });
+    </script>
+</body>
+</html>
