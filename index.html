@@ -2,12 +2,13 @@
 <html xmlns="http://www.w3.org/1999/xhtml">
 
 <head>
-  <title>Rub-a-Data</title>
+  <title>LOCAL RUB</title>
+  
   <script src="https://www.youtube.com/iframe_api"></script>
   <script src="https://w.soundcloud.com/player/api.js"></script>
   <link rel="stylesheet" href="styles.css">
+  <script src="script.js" defer></script> <!-- Link to external JavaScript file -->
 </head>
-
 
 <body style="background-color: #0EAD69;">
   <header style="background-color: #FFAD0A; margin: -8px -8px -0px -8px; border: 12px solid #db3a34">
@@ -17,8 +18,8 @@
   <br/>
 
   <!-- YouTube Player -->
-  <iframe id="youtubePlayer" width="420" height="315"
-  src="https://www.youtube.com/embed/tgbNymZ7vqY?enablejsapi=1" style="display: none;" frameborder="0">
+  <iframe id="youtubePlayer" width="420" height="315" style="display: none"
+          src="https://www.youtube.com/embed/FiFz5EKlKRA?enablejsapi=1" frameborder="0">
   </iframe>
 
   <!-- SoundCloud Player -->
@@ -34,9 +35,9 @@
     <div id="songArtists">Artista1, Artista2</div>
 
     <div class="button-container">
-      <button class="button-control"  onclick="previousMedia()">&#x23EA</button>
-      <button class="button-control"  onclick="playCurrentMedia()">&#9205</button>
-      <button class="button-control"  onclick="nextMedia()">&#x23E9</button>
+      <button class="button-control" onclick="previousMedia()">&#x23EA</button>
+      <button class="button-control" onclick="playCurrentMedia()">&#9205</button>
+      <button class="button-control" onclick="nextMedia()">&#x23E9</button>
     </div>
 
     <!-- Progress Bar -->
@@ -49,249 +50,8 @@
     <div id="message"></div>
 
   </div>
-  
+  <button onclick="toggleMediaVisibility()">Toggle Media Visibility</button>
 
-  <!-- Incorporare contenuto.html usando iframe -->
-   <iframe id="myIframe" src="tab_songs.txt" frameborder="0"></iframe>
-
-   <!-- Tag per mostrare il numero di caratteri -->
-   <div id="characterCount"></div>
-  
-  <button onclick="window.location.href='../index.xhtml'">SCASSATI!</button>
-
-  <script type="text/javascript">
-    var youtubePlayer;
-    var scWidget;
-    var mediaItems = [
-      { type: 'youtube', id: 'tgbNymZ7vqY' },   // YouTube video
-      { type: 'youtube', id: 'Se2y4DrZy4E' },   // YouTube video
-      { type: 'youtube', id: 'hipBlnFz95M' },   // YouTube video
-      { type: 'soundcloud', id: '858345298' },  // SoundCloud track
-      { type: 'soundcloud', id: '858345292' }, // SoundCloud track
-      { type: 'youtube', id: 'lTTajzrSkCw' }    // YouTube video
-    ];
-
-    var currentMediaIndex = -1;
-    var progressBar = document.getElementById('progressBar');
-    var progressKnob = document.getElementById('progressKnob');
-    var progressContainer = document.querySelector('.progress-container');
-
-    // Funzione per calcolare e mostrare il numero di caratteri
-      function countCharacters() {
-          var iframe = document.getElementById('myIframe');
-          var iframeContent = iframe.contentWindow.document.body.textContent || iframe.contentWindow.document.body.innerText;
-          var characterCount = iframeContent.length;
-          document.getElementById('characterCount').innerText = 'Numero di caratteri: ' + characterCount;
-      }
-    
-    function onYouTubeIframeAPIReady() {
-      youtubePlayer = new YT.Player('youtubePlayer', {
-        events: {
-          'onStateChange': onPlayerStateChange
-        }
-      });
-    }
-
-    function onPlayerStateChange(event) {
-      if (event.data == YT.PlayerState.PLAYING) {
-        updateProgressBar();
-      }
-      if (event.data == YT.PlayerState.ENDED) {
-        loadNextMedia();
-      }
-    }
-
-    function stopAllPlayers() {
-      if (youtubePlayer && youtubePlayer.stopVideo) {
-        youtubePlayer.stopVideo();
-      }
-      if (scWidget && scWidget.pause) {
-        scWidget.pause();
-      }
-    }
-
-    function loadMedia(index) {
-      if (index >= 0 && index < mediaItems.length) {
-        currentMediaIndex = index;
-        var nextMedia = mediaItems[currentMediaIndex];
-        stopAllPlayers(); // Stop any currently playing media
-
-        if (nextMedia.type === 'youtube') {
-          //document.getElementById('soundcloudPlayer').style.display = 'none';
-          //document.getElementById('youtubePlayer').style.display = 'block';
-          youtubePlayer.loadVideoById(nextMedia.id);
-        } else if (nextMedia.type === 'soundcloud') {
-          //document.getElementById('youtubePlayer').style.display = 'none';
-          //document.getElementById('soundcloudPlayer').style.display = 'block';
-          scWidget.load('https://api.soundcloud.com/tracks/' + nextMedia.id, {
-            auto_play: true,
-            show_comments: true,
-            show_user: true,
-            show_reposts: false,
-            visual: true
-          });
-        }
-        document.getElementById('message').innerHTML = 'Canzone corrente: ' + currentMediaIndex;
-      }
-    }
-
-    function loadNextMedia() {
-      loadMedia(currentMediaIndex + 1);
-    }
-
-    function loadPreviousMedia() {
-      loadMedia(currentMediaIndex - 1);
-    }
-
-    function playCurrentMedia() {
-        var playButton = document.querySelector(".button-control:nth-child(2)"); // Seleziona il secondo bottone
-
-        if (currentMediaIndex >= 0 && currentMediaIndex < mediaItems.length) {
-            var currentMedia = mediaItems[currentMediaIndex];
-            
-            if (currentMedia.type === 'youtube') {
-                // Controlla lo stato del video su YouTube
-                var playerState = youtubePlayer.getPlayerState();
-                if (playerState === YT.PlayerState.PLAYING) {
-                    youtubePlayer.pauseVideo(); // Metti in pausa
-                    playButton.innerHTML = '&#9205'; // Icona Play
-                } else if (playerState === YT.PlayerState.PAUSED || playerState === YT.PlayerState.CUED) {
-                    youtubePlayer.playVideo(); // Riprendi la riproduzione
-                    playButton.innerHTML = '&#9209'; // Icona Stop
-
-                }
-            } else if (currentMedia.type === 'soundcloud') {
-                // Controlla lo stato del player SoundCloud
-                scWidget.isPaused(function(isPaused) {
-                    if (isPaused) {
-                        scWidget.play(); // Riprendi la riproduzione
-                        playButton.innerHTML = '&#9209'; // Icona Stop
-                    } else {
-                        scWidget.pause(); // Metti in pausa
-                        playButton.innerHTML = '&#9209'; // Icona Stop
-                    }
-                });
-            }
-        }
-      }
-  
-
-    function nextMedia() {
-      loadNextMedia();
-    }
-
-    function previousMedia() {
-      loadPreviousMedia();
-    }
-
-    function formatTime(seconds) {
-      var minutes = Math.floor(seconds / 60);
-      var seconds = Math.floor(seconds % 60);
-      return minutes + ":" + (seconds < 10 ? "0" : "") + seconds;
-    }
-
-    function updateProgressBar() {
-      var timeDisplay = document.getElementById('timeDisplay');
-
-      if (youtubePlayer) {
-        var duration = youtubePlayer.getDuration();
-        var currentTime = youtubePlayer.getCurrentTime();
-        var progress = (currentTime / duration) * 100;
-        progressBar.style.width = progress + '%';
-        progressKnob.style.left = progress + '%';
-        timeDisplay.innerHTML = formatTime(currentTime) + " / " + formatTime(duration);
-      }
-
-      if (scWidget) {
-        //scWidget.getCurrentPosition(function(position) {
-          //scWidget.getDuration(function(duration) {
-          //var progress = (position / duration) * 100;
-          //progressBar.style.width = progress + '%';
-          //progressKnob.style.left = progress + '%';
-          //timeDisplay.innerHTML = formatTime(position) + " / " + formatTime(duration);
-          //});
-        //});
-      }
-    }
-    // PLAY &#9205
-    // STOP &#9209
-
-    // Inizializza il player di SoundCloud
-    var iframeElement = document.getElementById('soundcloudPlayer');
-    scWidget = SC.Widget(iframeElement);
-
-    scWidget.bind(SC.Widget.Events.READY, function() {
-      scWidget.bind(SC.Widget.Events.PLAY, function() {
-        updateProgressBar();
-      });
-      scWidget.bind(SC.Widget.Events.FINISH, function() {
-        loadNextMedia();
-      });
-    });
-
-    // Carica il primo media
-    window.onload = function() {
-      var iframe = document.getElementById('myIframe');
-      iframe.onload = countCharacters;
-      loadNextMedia();
-    };
-
-    // Aggiorna la barra di avanzamento ogni secondo
-    setInterval(updateProgressBar, 1000);
-
-    // Gestione del drag-and-drop del cursore di avanzamento
-    let isDragging = false;
-
-    progressKnob.addEventListener('mousedown', function(e) {
-      isDragging = true;
-      document.addEventListener('mousemove', onMouseMove);
-      document.addEventListener('mouseup', onMouseUp);
-    });
-
-    function onMouseMove(e) {
-      if (isDragging) {
-        let rect = progressContainer.getBoundingClientRect();
-        let x = e.clientX - rect.left;
-        let progress = Math.min(Math.max(x / rect.width, 0), 1);
-        progressBar.style.width = (progress * 100) + '%';
-        progressKnob.style.left = (progress * 100) + '%';
-
-        if (youtubePlayer) {
-          let duration = youtubePlayer.getDuration();
-          youtubePlayer.seekTo(progress * duration);
-        }
-        if (scWidget) {
-          scWidget.getDuration(function(duration) {
-            scWidget.seekTo(progress * duration);
-          });
-        }
-      }
-    }
-
-    function onMouseUp() {
-      isDragging = false;
-      document.removeEventListener('mousemove', onMouseMove);
-      document.removeEventListener('mouseup', onMouseUp);
-    }
-
-    // Funzione per caricare il contenuto del file txt
-  function loadFile() {
-    fetch('tab_songs.txt')
-        .then(response => response.text())
-        .then(text => {
-            document.getElementById('fileContent').textContent = text;
-        })
-        .catch(error => {
-            document.getElementById('fileContent').textContent = 'Failed to load file.';
-            console.error('Error loading file:', error);
-        });
-  }
-
-  // Carica il file quando il documento è pronto
-  document.addEventListener('DOMContentLoaded', loadFile);
-
-
-  </script>
 
 </body>
 </html>
