@@ -1,17 +1,58 @@
 [
   {
-    "title": "Song 1",
-    "artist": "Artist 1",
-    "yt_link": "https://www.youtube.com/watch?v=randomlink1"
+    "title": "Jah Foundation",
+    "artist": "Anthony Chambers",
+    "yt_link": "https://www.youtube.com/watch?v=WpRiY1eo74U",
+    "selecta": "Sista Alice"
   },
   {
-    "title": "Song 2",
-    "artist": "Artist 2",
-    "yt_link": "https://www.youtube.com/watch?v=randomlink2"
+    "title": "The Light",
+    "artist": "More Relation",
+    "yt_link": "https://www.youtube.com/watch?v=Q9HP8A3oe00",
+    "selecta": "Sista Alice"
   },
   {
-    "title": "Song 3",
-    "artist": "Artist 3",
-    "yt_link": "https://www.youtube.com/watch?v=randomlink3"
+    "title": "Life in the Ghetto",
+    "artist": "Valentine Brodie",
+    "yt_link": "https://www.youtube.com/watch?v=BcvnyuU_Ruc",
+    "selecta": "Sista Alice"
+  },
+  {
+    "title": "Trying Man",
+    "artist": "Toney Barrett",
+    "yt_link": "https://www.youtube.com/watch?v=bErZrzR-QUI",
+    "selecta": "Sista Alice"
+  },
+  {
+    "title": "Peace & Love (Blacker Black)",
+    "artist": "The Royals",
+    "yt_link": "https://www.youtube.com/watch?v=KuNJgw-d2YM",
+    "selecta": "Sista Alice"
+  },
+  {
+    "title": "Give Me Love",
+    "artist": "Time Unlimited",
+    "yt_link": "https://www.youtube.com/watch?v=QeUXjGMAByI",
+    "selecta": "Sista Alice"
+  },
+  {
+    "title": "Its Too Late",
+    "artist": "The Warriors",
+    "yt_link": "https://www.youtube.com/watch?v=8eDLymkko28",
+    "selecta": "Sista Alice"
+  },
+  {
+    "title": "Za-Ion",
+    "artist": "Dennis Bovell & The 4th Street Orchestra",
+    "yt_link": "https://www.youtube.com/watch?v=cRu47taDjq8",
+    "selecta": "Ivano"
+  },
+  {
+    "title": "No More Police",
+    "artist": "Jah Live & His Light Of The People",
+    "yt_link": "https://www.youtube.com/watch?v=Tm3tSJLUU6s",
+    "selecta": "Ivano"
   }
 ]
+
+
