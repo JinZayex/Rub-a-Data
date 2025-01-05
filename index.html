@@ -1,57 +1,35 @@
 <!DOCTYPE html>
 <html xmlns="http://www.w3.org/1999/xhtml">
-
 <head>
-  <title>LOCAL RUB</title>
-  
-  <script src="https://www.youtube.com/iframe_api"></script>
-  <script src="https://w.soundcloud.com/player/api.js"></script>
-  <link rel="stylesheet" href="styles.css">
-  <script src="script.js" defer></script> <!-- Link to external JavaScript file -->
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Music Playlist</title>
+  <script>
+    document.addEventListener("DOMContentLoaded", function() {
+      // Carica il file JSON locale
+      fetch('songs.json')
+        .then(response => response.json())
+        .then(data => {
+          // Se i dati sono corretti, popoliamo la pagina
+          const songList = document.getElementById('song-list');
+          data.forEach(song => {
+            const songItem = document.createElement('li');
+            songItem.innerHTML = `
+              <strong>Title:</strong> ${song.title}<br />
+              <strong>Artist:</strong> ${song.artist}<br />
+              <strong>Link:</strong> <a href="${song.yt_link}" target="_blank">Listen on YouTube</a>
+            `;
+            songList.appendChild(songItem);
+          });
+        })
+        .catch(error => console.error('Error loading JSON:', error));
+    });
+  </script>
 </head>
-
-<body style="background-color: #0EAD69;">
-  <header style="background-color: #FFAD0A; margin: -8px -8px -0px -8px; border: 12px solid #db3a34">
-    <img src="./IMG/RUBADUBLOGO-removebg.png" style="padding:10px" alt="Rub-A-Data Logo" width="500">
-  </header>
-  <br/>
-  <br/>
-
-  <!-- YouTube Player -->
-  <iframe id="youtubePlayer" width="420" height="315" style="display: none"
-          src="https://www.youtube.com/embed/FiFz5EKlKRA?enablejsapi=1" frameborder="0">
-  </iframe>
-
-  <!-- SoundCloud Player -->
-  <iframe id="soundcloudPlayer" width="100%" height="450" 
-  scrolling="no" 
-  frameborder="0" 
-  src="https://w.soundcloud.com/player/?url=https%3A//api.soundcloud.com/tracks/41395010&amp;auto_play=false&amp;hide_related=false&amp;show_comments=true&amp;show_user=true&amp;show_reposts=false&amp;visual=true" style="display: none;">
-  </iframe>
-
-  <div class="media-control-container">
-
-    <b><div id="songTitle">Titolo della canzone</div></b>
-    <div id="songArtists">Artista1, Artista2</div>
-
-    <div class="button-container">
-      <button class="button-control" onclick="previousMedia()">&#x23EA</button>
-      <button class="button-control" onclick="playCurrentMedia()">&#9205</button>
-      <button class="button-control" onclick="nextMedia()">&#x23E9</button>
-    </div>
-
-    <!-- Progress Bar -->
-    <div class="progress-container">
-      <div class="progress-bar" id="progressBar"></div>
-      <div class="progress-knob" id="progressKnob"></div>
-    </div>
-
-    <div class="time-display" id="timeDisplay">0:00 / 0:00</div>
-    <div id="message"></div>
-
-  </div>
-  <button onclick="toggleMediaVisibility()">Toggle Media Visibility</button>
-
-
+<body>
+  <h1>Music Playlist</h1>
+  <ul id="song-list">
+    <!-- The song list will be populated here -->
+  </ul>
 </body>
 </html>
