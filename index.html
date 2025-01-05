@@ -4,55 +4,6 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Music Playlist</title>
-  <style>
-    /* Styling generale per il corpo della pagina */
-    body {
-      font-family: Arial, sans-serif;
-      margin: 0;
-      padding: 0;
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      height: 100vh;
-      background-color: #f4f4f4;
-    }
-
-    /* Header con un po' di padding */
-    h1 {
-      text-align: center;
-    }
-
-    /* Impostiamo il contenitore come grid */
-    #song-list {
-      display: grid;
-      grid-template-columns: repeat(3, 1fr); /* 3 colonne di larghezza uguale */
-      gap: 20px; /* Distanza tra gli elementi */
-      list-style-type: none;
-      padding: 0;
-      margin: 0;
-      max-width: 1000px;
-    }
-
-    /* Styling per ogni singolo elemento della lista */
-    #song-list li {
-      background-color: white;
-      border: 1px solid #ddd;
-      border-radius: 5px;
-      padding: 10px;
-      box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-    }
-
-    /* Styling per i link */
-    a {
-      color: #007BFF;
-      text-decoration: none;
-    }
-
-    /* Hover effect per i link */
-    a:hover {
-      text-decoration: underline;
-    }
-  </style>
   <script>
     document.addEventListener("DOMContentLoaded", function() {
       // Carica il file JSON locale
@@ -72,7 +23,9 @@
               songItem.innerHTML = `
                 <strong>Title:</strong> ${song.title}<br />
                 <strong>Artist:</strong> ${song.artist}<br />
-                <strong>Link:</strong> <a href="${song.yt_link}" target="_blank">Listen on YouTube</a>
+                <strong>Select:</strong> ${song.selecta}<br />
+                <strong>Link:</strong> <a href="${song.yt_link}" target="_blank">Listen on YouTube</a><br/>
+                <br/><br/>
               `;
               songList.appendChild(songItem);
             }
@@ -83,11 +36,9 @@
   </script>
 </head>
 <body>
-  <div>
-    <h1>Music Playlist</h1>
-    <ol id="song-list">
-      <!-- La lista delle canzoni verrà popolata qui -->
-    </ol>
-  </div>
+  <h1>Music Playlist</h1>
+  <ol id="song-list">
+    <!-- La lista ordinata verrà popolata qui -->
+  </ol>
 </body>
 </html>
