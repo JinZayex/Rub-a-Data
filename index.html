@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Music Playlist</title>
+  <title>MusƏca bonƏ</title>
   <script>
     document.addEventListener("DOMContentLoaded", function() {
       // Carica il file JSON locale
@@ -17,9 +17,9 @@
             songItem.innerHTML = `
               <strong>Title:</strong> ${song.title}<br />
               <strong>Artist:</strong> ${song.artist}<br />
-              <strong>Link:</strong> <a href="${song.yt_link}" target="_blank">Listen on YouTube <a/>
+              <strong>Link:</strong> <a href="${song.yt_link}" target="_blank">Listen on YouTube <a/> <br/>
               <strong>Selecta:</strong> ${song.selecta}
-              <br/>
+              <br/><br/>
             `;
             songList.appendChild(songItem);
           });
