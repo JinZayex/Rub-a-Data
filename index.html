@@ -4,6 +4,22 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Mus'ca bon</title>
+  <style>
+        ol {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr); /* 3 colonne */
+            gap: 10px; /* Spazio tra gli elementi */
+            list-style-type: none; /* Rimuove i numeri della lista */
+            padding: 0;
+        }
+
+        li {
+            background-color: #f0f0f0; /* Colore di sfondo per ogni elemento */
+            padding: 10px;
+            text-align: center; /* Allinea il testo al centro */
+            border: 1px solid #ccc; /* Aggiunge un bordo sottile */
+        }
+    </style>
   <script>
     document.addEventListener("DOMContentLoaded", function() {
       // Carica il file JSON locale
