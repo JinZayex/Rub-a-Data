@@ -4,145 +4,7 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>RUB-A-DATA</title>
-  <style>
-        ol {
-            display: grid;
-            grid-template-columns: repeat(3, 1fr); /* 3 colonne */
-            gap: 10px; /* Spazio tra gli elementi */
-            list-style-type: none; /* Rimuove i numeri della lista */
-            padding: 0;
-        }
-
-        li {
-            background-color: #f0f0f0; /* Colore di sfondo per ogni elemento */
-            padding: 10px;
-            border: 1px solid #ccc; /* Aggiunge un bordo sottile */
-        }
-        img {
-            max-width: 100%; /* L'immagine non deve superare la larghezza dell'elemento che la contiene */
-            height: auto; /* Mantiene le proporzioni */
-            border-radius: 5px;
-            margin-bottom: 10px;
-            object-fit: contain; /* Mantiene le proporzioni dell'immagine senza distorcerla */
-        }
-        div.sticky {
-          position: sticky;
-          top: 0;
-          background-color: yellow;
-          padding: 10px;
-          font-size: 20px;
-          margin: -10px;
-        }
-
-        .media-control-container {
-          margin-top: 15px;
-          padding: 10px;
-          background-color: #ffffff;
-          border: 2px solid #ccc;
-          border-radius: 10px;
-          text-align: center;
-        }
-        
-        .button-container {
-          margin-top: 10px;
-        }
-        
-        .button-control {
-          font-size: 18px;
-          margin: 0 5px;
-          padding: 5px 10px;
-          border: none;
-          background-color: #0EAD69;
-          color: #ffffff;
-          border-radius: 5px;
-          cursor: pointer;
-        }
-        
-        .button-control:hover {
-          background-color: #066E47;
-        }
-        
-        .progress-container {
-          margin-top: 10px;
-          position: relative;
-          background-color: #ddd;
-          height: 10px;
-          border-radius: 5px;
-          width: 100%;
-        }
-        
-        .progress-bar {
-          background-color: #0EAD69;
-          height: 100%;
-          width: 50%; /* Placeholder per il progresso */
-          border-radius: 5px;
-        }
-        
-        .progress-knob {
-          position: absolute;
-          top: 50%;
-          transform: translateY(-50%);
-          width: 12px;
-          height: 12px;
-          background-color: #FFAD0A;
-          border-radius: 50%;
-          cursor: pointer;
-          left: 50%; /* Placeholder per la posizione */
-        }
-  </style>
-  <script>
-    document.addEventListener("DOMContentLoaded", function() {
-      // Carica il file JSON locale
-      fetch('songs.json')
-        .then(response => response.json())
-        .then(data => {
-          const songList = document.getElementById('song-list');
-          const titleSearchBar = document.getElementById('search-title');
-          const artistSearchBar = document.getElementById('search-artist');
-          const selectaSearchBar = document.getElementById('search-selecta');
-
-          // Funzione per aggiornare la lista delle canzoni
-          function updateSongList() {
-            const titleFilter = titleSearchBar.value.toLowerCase();
-            const artistFilter = artistSearchBar.value.toLowerCase();
-            const selectaFilter = selectaSearchBar.value.toLowerCase();
-
-            songList.innerHTML = ""; // Svuota la lista
-            for (const id in data) {
-              if (data.hasOwnProperty(id)) {
-                const song = data[id];
-                // Controlla i filtri
-                if (
-                  song.title.toLowerCase().includes(titleFilter) &&
-                  song.artist.toLowerCase().includes(artistFilter) &&
-                  song.selecta.toLowerCase().includes(selectaFilter)
-                ) {
-                  const songItem = document.createElement('li');
-                  songItem.innerHTML = `
-                    <img src="${song.thumbnail}" > <br/>
-                    <strong>${song.title} </strong><br/>
-                    ${song.artist}<br />
-                    <strong>Selecta:</strong> ${song.selecta}<br />
-                    <a href="${song.yt_link}" target="_blank">Listen on YouTube</a>
-                    <br/>
-                  `;
-                  songList.appendChild(songItem);
-                }
-              }
-            }
-          }
-
-          // Aggiorna la lista inizialmente
-          updateSongList();
-
-          // Aggiungi eventi per aggiornare la lista in base ai filtri
-          titleSearchBar.addEventListener('input', updateSongList);
-          artistSearchBar.addEventListener('input', updateSongList);
-          selectaSearchBar.addEventListener('input', updateSongList);
-        })
-        .catch(error => console.error('Error loading JSON:', error));
-    });
-  </script>
+  <link rel="stylesheet" href="styles.css">
 </head>
 <body>
   <div class="sticky">
@@ -159,14 +21,14 @@
       <input type="text" id="search-selecta" placeholder="Cerca per selecta" /><br/>
     </div>
 
-     <!-- Media Player -->
+    <!-- Media Player -->
     <div class="media-control-container">
       <b><div id="songTitle">Titolo della canzone</div></b>
       <div id="songArtists">Artista1, Artista2</div>
       <div class="button-container">
-        <button class="button-control">&#x23EA</button>
-        <button class="button-control">&#9205</button>
-        <button class="button-control">&#x23E9</button>
+        <button id="prevButton" class="button-control">&#x23EA</button>
+        <button id="playButton" class="button-control">&#9205</button>
+        <button id="nextButton" class="button-control">&#x23E9</button>
       </div>
       <!-- Progress Bar -->
       <div class="progress-container">
@@ -179,7 +41,7 @@
   <ol id="song-list">
     <!-- La lista ordinata verrà popolata qui -->
   </ol>
-
   <script src="player.js"></script>
 </body>
 </html>
+
