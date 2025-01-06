@@ -10,7 +10,7 @@ const progressContainer = document.querySelector('.progress-container');
 let songsData = [];
 
 // Caricamento iniziale dei dati
-fetch('songs.json')
+fetch('https://jinzayex.github.io/Rub-a-Data/songs.json')
   .then(response => response.json())
   .then(data => {
     songsData = data;
