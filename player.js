@@ -44,6 +44,30 @@ function updateSongList() {
   });
 }
 
+function onYouTubeIframeAPIReady() {
+  youtubePlayer = new YT.Player('youtubePlayer', {
+    events: {
+      'onStateChange': onPlayerStateChange
+    }
+  });
+}
+
+function onPlayerStateChange(event) {
+  if (event.data == YT.PlayerState.PLAYING) {
+    updateProgressBar();
+  }
+  if (event.data == YT.PlayerState.ENDED) {
+    loadNextMedia();
+  }
+}
+
+function stopAllPlayers() {
+  if (youtubePlayer && youtubePlayer.stopVideo) {
+    youtubePlayer.stopVideo();
+  }
+}
+
+
 // Event listener per i filtri
 titleSearchBar.addEventListener('input', updateSongList);
 artistSearchBar.addEventListener('input', updateSongList);
