@@ -33,27 +33,39 @@
       fetch('songs.json')
         .then(response => response.json())
         .then(data => {
-          // Se i dati sono corretti, popoliamo la pagina
           const songList = document.getElementById('song-list');
-          
-          // Itera sulle chiavi dell'oggetto indicizzato
-          for (const id in data) {
-            if (data.hasOwnProperty(id)) {
-              const song = data[id];
-              
-              // Crea un elemento <li> per ogni canzone
-              const songItem = document.createElement('li');
-              songItem.innerHTML = `
-                <img src="${song.thumbnail}" > <br/>
-                <strong>Title:</strong> ${song.title} <br/>
-                <strong>Artist:</strong> ${song.artist}<br />
-                <strong>Selecta:</strong> ${song.selecta}<br />
-                <a href="${song.yt_link}" target="_blank">Listen on YouTube</a>
-                <br/>
-              `;
-              songList.appendChild(songItem);
+          const searchBar = document.getElementById('search-bar');
+
+          // Funzione per aggiornare la lista delle canzoni
+          function updateSongList(filter = "") {
+            songList.innerHTML = ""; // Svuota la lista
+            for (const id in data) {
+              if (data.hasOwnProperty(id)) {
+                const song = data[id];
+                // Controlla se il titolo corrisponde al filtro
+                if (song.title.toLowerCase().includes(filter.toLowerCase())) {
+                  const songItem = document.createElement('li');
+                  songItem.innerHTML = `
+                    <img src="${song.thumbnail}" > <br/>
+                    <strong>Title:</strong> ${song.title} <br/>
+                    <strong>Artist:</strong> ${song.artist}<br />
+                    <strong>Selecta:</strong> ${song.selecta}<br />
+                    <a href="${song.yt_link}" target="_blank">Listen on YouTube</a>
+                    <br/>
+                  `;
+                  songList.appendChild(songItem);
+                }
+              }
             }
           }
+
+          // Aggiorna la lista inizialmente
+          updateSongList();
+
+          // Aggiungi un evento per aggiornare la lista in base alla ricerca
+          searchBar.addEventListener('input', function() {
+            updateSongList(searchBar.value);
+          });
         })
         .catch(error => console.error('Error loading JSON:', error));
     });
@@ -61,11 +73,11 @@
 </head>
 <body>
   <h1>Mus'ca bon'</h1>
+  <input type="text" id="search-bar" placeholder="Cerca per titolo" />
   <ol id="song-list">
     <!-- La lista ordinata verrà popolata qui -->
   </ol>
   <br/>
   <a href="https://forms.gle/8QjwXYrqtQQjQJvZ8" target="_blank">Vuoi inserire un brano? Cliccami!</a>
-  
 </body>
 </html>
