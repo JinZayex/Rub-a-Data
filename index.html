@@ -33,6 +33,70 @@
           font-size: 20px;
           margin: -10px;
         }
+
+        <!-- Media control stili -->
+        .media-control-container {
+          margin-top: 15px;
+          padding: 10px;
+          background-color: #ffffff;
+          border: 2px solid #ccc;
+          border-radius: 10px;
+          text-align: center;
+        }
+        
+        .button-container {
+          margin-top: 10px;
+        }
+        
+        .button-control {
+          font-size: 18px;
+          margin: 0 5px;
+          padding: 5px 10px;
+          border: none;
+          background-color: #0EAD69;
+          color: #ffffff;
+          border-radius: 5px;
+          cursor: pointer;
+        }
+        
+        .button-control:hover {
+          background-color: #066E47;
+        }
+        
+        .progress-container {
+          margin-top: 10px;
+          position: relative;
+          background-color: #ddd;
+          height: 10px;
+          border-radius: 5px;
+          width: 100%;
+        }
+        
+        .progress-bar {
+          background-color: #0EAD69;
+          height: 100%;
+          width: 50%; /* Placeholder per il progresso */
+          border-radius: 5px;
+        }
+        
+        .progress-knob {
+          position: absolute;
+          top: 50%;
+          transform: translateY(-50%);
+          width: 12px;
+          height: 12px;
+          background-color: #FFAD0A;
+          border-radius: 50%;
+          cursor: pointer;
+          left: 50%; /* Placeholder per la posizione */
+        }
+        
+        .time-display {
+          margin-top: 5px;
+          font-size: 14px;
+          color: #333;
+        }
+
   </style>
   <script>
     document.addEventListener("DOMContentLoaded", function() {
@@ -95,11 +159,31 @@
     </header>
     <a href="https://forms.gle/8QjwXYrqtQQjQJvZ8" target="_blank">Vuoi inserire un brano? Cliccami!</a>
     <br/>
+
+    <!-- Filtri di ricerca -->
     <div>
       <input type="text" id="search-title" placeholder="Cerca per titolo" /><br/>
       <input type="text" id="search-artist" placeholder="Cerca per artista" /><br/>
       <input type="text" id="search-selecta" placeholder="Cerca per selecta" /><br/>
     </div>
+
+     <!-- Media Player -->
+    <div class="media-control-container">
+      <b><div id="songTitle">Titolo della canzone</div></b>
+      <div id="songArtists">Artista1, Artista2</div>
+      <div class="button-container">
+        <button class="button-control">&#x23EA</button>
+        <button class="button-control">&#9205</button>
+        <button class="button-control">&#x23E9</button>
+      </div>
+      <!-- Progress Bar -->
+      <div class="progress-container">
+        <div class="progress-bar" id="progressBar"></div>
+        <div class="progress-knob" id="progressKnob"></div>
+      </div>
+      <div class="time-display" id="timeDisplay">0:00 / 0:00</div>
+    </div>
+    
   </div>
   <ol id="song-list">
     <!-- La lista ordinata verrà popolata qui -->
