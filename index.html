@@ -26,7 +26,7 @@
             margin-bottom: 10px;
             object-fit: contain; /* Mantiene le proporzioni dell'immagine senza distorcerla */
         }
-    </style>
+  </style>
   <script>
     document.addEventListener("DOMContentLoaded", function() {
       // Carica il file JSON locale
@@ -34,16 +34,26 @@
         .then(response => response.json())
         .then(data => {
           const songList = document.getElementById('song-list');
-          const searchBar = document.getElementById('search-bar');
+          const titleSearchBar = document.getElementById('search-title');
+          const artistSearchBar = document.getElementById('search-artist');
+          const selectaSearchBar = document.getElementById('search-selecta');
 
           // Funzione per aggiornare la lista delle canzoni
-          function updateSongList(filter = "") {
+          function updateSongList() {
+            const titleFilter = titleSearchBar.value.toLowerCase();
+            const artistFilter = artistSearchBar.value.toLowerCase();
+            const selectaFilter = selectaSearchBar.value.toLowerCase();
+
             songList.innerHTML = ""; // Svuota la lista
             for (const id in data) {
               if (data.hasOwnProperty(id)) {
                 const song = data[id];
-                // Controlla se il titolo corrisponde al filtro
-                if (song.title.toLowerCase().includes(filter.toLowerCase())) {
+                // Controlla i filtri
+                if (
+                  song.title.toLowerCase().includes(titleFilter) &&
+                  song.artist.toLowerCase().includes(artistFilter) &&
+                  song.selecta.toLowerCase().includes(selectaFilter)
+                ) {
                   const songItem = document.createElement('li');
                   songItem.innerHTML = `
                     <img src="${song.thumbnail}" > <br/>
@@ -62,23 +72,25 @@
           // Aggiorna la lista inizialmente
           updateSongList();
 
-          // Aggiungi un evento per aggiornare la lista in base alla ricerca
-          searchBar.addEventListener('input', function() {
-            updateSongList(searchBar.value);
-          });
+          // Aggiungi eventi per aggiornare la lista in base ai filtri
+          titleSearchBar.addEventListener('input', updateSongList);
+          artistSearchBar.addEventListener('input', updateSongList);
+          selectaSearchBar.addEventListener('input', updateSongList);
         })
         .catch(error => console.error('Error loading JSON:', error));
     });
   </script>
 </head>
 <body>
-  <h1>RUB-A-DATA</h1>
-  <br/>
+  <h1>Mus'ca bon'</h1>
   <a href="https://forms.gle/8QjwXYrqtQQjQJvZ8" target="_blank">Vuoi inserire un brano? Cliccami!</a>
-  <input type="text" id="search-bar" placeholder="Cerca per titolo" />
+  <div>
+    <input type="text" id="search-title" placeholder="Cerca per titolo" />
+    <input type="text" id="search-artist" placeholder="Cerca per artista" />
+    <input type="text" id="search-selecta" placeholder="Cerca per selecta" />
+  </div>
   <ol id="song-list">
     <!-- La lista ordinata verrà popolata qui -->
   </ol>
-  <br/>
 </body>
 </html>
