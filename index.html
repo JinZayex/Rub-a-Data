@@ -6,6 +6,35 @@
   <title>RUB-A-DATA</title>
   <link rel="stylesheet" href="styles.css">
 </head>
+<style>
+    ol {
+        display: grid;
+        grid-template-columns: repeat(3, 1fr); /* 3 colonne */
+        gap: 10px; /* Spazio tra gli elementi */
+        list-style-type: none; /* Rimuove i numeri della lista */
+        padding: 0;
+    }
+    li {
+        background-color: #f0f0f0; /* Colore di sfondo per ogni elemento */
+        padding: 10px;
+        border: 1px solid #ccc; /* Aggiunge un bordo sottile */
+    }
+    img {
+        max-width: 100%; /* L'immagine non deve superare la larghezza dell'elemento che la contiene */
+        height: auto; /* Mantiene le proporzioni */
+        border-radius: 5px;
+        margin-bottom: 10px;
+        object-fit: contain; /* Mantiene le proporzioni dell'immagine senza distorcerla */
+    }
+    div.sticky {
+      position: sticky;
+      top: 0;
+      background-color: yellow;
+      padding: 10px;
+      font-size: 20px;
+      margin: -10px;
+    }
+  </style>
 <body>
   <div class="sticky">
     <header style="background-color: #FFAD0A; margin: -8px -8px -0px -8px; border: 12px solid #db3a34">
