@@ -54,9 +54,10 @@ function loadMedia(index) {
   if (index >= 0 && index < songsData.length) {
     currentMediaIndex = index;
     const media = songsData[index];
+    const videoId = extractVideoId(media.yt_link);
 
-    // Caricamento del video
-    youtubePlayer.loadVideoById(media.link);
+    // Caricamento del video nel lettore YouTube
+    youtubePlayer.loadVideoById(videoId);
 
     // Aggiorna informazioni del player
     document.getElementById('songTitle').textContent = media.title;
