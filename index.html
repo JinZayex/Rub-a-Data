@@ -16,11 +16,10 @@
         li {
             background-color: #f0f0f0; /* Colore di sfondo per ogni elemento */
             padding: 10px;
-            text-align: center; /* Allinea il testo al centro */
             border: 1px solid #ccc; /* Aggiunge un bordo sottile */
         }
         img {
-            max-width: 60%; /* L'immagine non deve superare la larghezza dell'elemento che la contiene */
+            max-width: 100%; /* L'immagine non deve superare la larghezza dell'elemento che la contiene */
             height: auto; /* Mantiene le proporzioni */
             border-radius: 5px;
             margin-bottom: 10px;
@@ -57,8 +56,8 @@
                   const songItem = document.createElement('li');
                   songItem.innerHTML = `
                     <img src="${song.thumbnail}" > <br/>
-                    <strong>Title:</strong> ${song.title} <br/>
-                    <strong>Artist:</strong> ${song.artist}<br />
+                    <strong>${song.title} </strong><br/>
+                    ${song.artist}<br />
                     <strong>Selecta:</strong> ${song.selecta}<br />
                     <a href="${song.yt_link}" target="_blank">Listen on YouTube</a>
                     <br/>
