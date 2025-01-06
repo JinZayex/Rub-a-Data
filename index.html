@@ -37,9 +37,9 @@
               // Crea un elemento <li> per ogni canzone
               const songItem = document.createElement('li');
               songItem.innerHTML = `
-                <img src="${song.title}" height="600">
-                <strong>${song.title}</strong><br />
-                <i>${song.artist}</i><br />
+                <img src="${song.thumbnail}" >
+                <strong>Title:</strong> ${song.title} <br/>
+                <strong>Artist:</strong> ${song.artist}<br />
                 <strong>Selecta:</strong> ${song.selecta}<br />
                 <a href="${song.yt_link}" target="_blank">Listen on YouTube</a>
                 <br/>
