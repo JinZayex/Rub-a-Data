@@ -19,6 +19,13 @@
             text-align: center; /* Allinea il testo al centro */
             border: 1px solid #ccc; /* Aggiunge un bordo sottile */
         }
+        img {
+            max-width: 100%; /* L'immagine non deve superare la larghezza dell'elemento che la contiene */
+            height: auto; /* Mantiene le proporzioni */
+            border-radius: 5px;
+            margin-bottom: 10px;
+            object-fit: contain; /* Mantiene le proporzioni dell'immagine senza distorcerla */
+        }
     </style>
   <script>
     document.addEventListener("DOMContentLoaded", function() {
