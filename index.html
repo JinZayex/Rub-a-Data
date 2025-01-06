@@ -37,6 +37,7 @@
               // Crea un elemento <li> per ogni canzone
               const songItem = document.createElement('li');
               songItem.innerHTML = `
+                <img src="${song.title}" height="600">
                 <strong>Title:</strong> ${song.title}<br />
                 <strong>Artist:</strong> ${song.artist}<br />
                 <strong>Selecta:</strong> ${song.selecta}<br />
