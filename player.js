@@ -33,7 +33,7 @@ function updateSongList() {
     ) {
       const songItem = document.createElement('li');
       songItem.innerHTML = `
-        <img src="${song.thumbnail}" ><br/>
+        <img src="https://img.youtube.com/vi/${song.yt_link}/hqdefault.jpg"><br/>
         <strong>${song.title}</strong><br/>
         ${song.artist}<br />
         <strong>Selecta:</strong> ${song.selecta}<br />
